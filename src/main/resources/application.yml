@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: demo-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.168.1.248:8848
+        namespace: b60e1e77-d986-4d0e-919e-a8de3a5f034b
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+#      routes:
+#        - id: daisyday-demon7
+#          uri: lb://customer
+#          predicates:
+#           - Path=/customer/**
+#          filters:
+#           - TokenRelay=
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client3:
+            provider: spring
+            client-id: login-client3
+            client-secret: gate-way
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8091/login/oauth2/code/login-client3
+            scope: openid,profile,email,resource.read
+            client-name: Spring
+        provider:
+          spring:
+            authorization-uri: http://localhost:8090/uaa/oauth/authorize
+            token-uri: http://localhost:8090/uaa/oauth/token
+            user-info-uri: http://localhost:8090/uaa/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://localhost:8090/uaa/token_keys
+
+
+
+server:
+  port: 8091
+
+
