@@ -21,26 +21,28 @@ spring:
     oauth2:
       client:
         registration:
-          login-client3:
+          login-client2:
             provider: spring
-            client-id: login-client3
-            client-secret: gate-way
+            client-id: login-client2
+            client-secret: openid-connect
             client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8091/login/oauth2/code/login-client3
-            scope: openid,profile,email,resource.read
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope: openid,profile
             client-name: Spring
         provider:
           spring:
-            authorization-uri: http://localhost:8090/uaa/oauth/authorize
-            token-uri: http://localhost:8090/uaa/oauth/token
-            user-info-uri: http://localhost:8090/uaa/userinfo
-            user-name-attribute: sub
-            jwk-set-uri: http://localhost:8090/uaa/token_keys
-
-
+            authorization-uri: http://www.xg.com:9000/oauth2/authorize
+            token-uri: http://www.xg.com:9000/oauth2/token
+            jwk-set-uri: http://www.xg.com:9000/oauth2/jwks
 
 server:
   port: 8091
+  ssl:
+    enabled: true
+    key-alias: root
+    key-store-password: 189@yuan
+    key-store: classpath:dlt.p12
+    key-store-type: PKCS12
 
 
